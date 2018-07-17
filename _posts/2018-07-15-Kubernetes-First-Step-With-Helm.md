@@ -7,17 +7,6 @@ author: vikrant
 comments: true
 ---
 
-<div class="post-categories">
-  {% if post %}
-    {% assign categories = post.categories %}
-  {% else %}
-    {% assign categories = page.categories %}
-  {% endif %}
-  {% for category in categories %}
-  <a href="{{site.baseurl}}/categories/#{{category|slugize}}">{{category}}</a>
-  {% unless forloop.last %}&nbsp;{% endunless %}
-  {% endfor %}
-</div>
 
 Helm is the package manager for kubernetes, similar to dnf or yum in linux. It's very to start with helm, if you have followed my previous articles, you may already know that I am using minikube for kubernetes learning which is running on Mac using Oracle virtualbox provider. Helm is based on client/server architecture, it has two components helm itself which is command to talk to kube-api server in my case helm is installed on Mac and tiller which installed on kubernetes nodes i.e minikube. 
 
