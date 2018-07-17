@@ -1,3 +1,12 @@
+---
+layout: post
+title: Rook ceph custom resource defintions in kubernetes
+tags: [kubernetes, rook, ceph]
+category: [kubernetes, rook, ceph]
+author: vikrant
+comments: true
+---
+
 Custom resource defintions which are created by Rook operator. 
 
 - In the last article, we were able to create the ceph 
@@ -12,6 +21,7 @@ pools.ceph.rook.io          1d
 volumes.rook.io             1d
 ~~~
 
+- To check the detailed information about the custom resource definition. 
 
 ~~~
 $ kubectl describe customresourcedefinition/clusters.ceph.rook.io
