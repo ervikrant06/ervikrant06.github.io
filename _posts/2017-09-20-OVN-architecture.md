@@ -1,3 +1,12 @@
+---
+layout: post
+title: Understand OVN architecture
+tags: [OVN]
+category: [OVN, Openstack]
+author: vikrant
+comments: true
+--- 
+
 In previous post, we have seen the procedure to use OVN as mechanism driver in packstack installation. In this article, my main focus is to talk about the OVN architecture. 
 
 I would suggest you some great reads on this topic given in References section. 

@@ -1,3 +1,12 @@
+---
+layout: post
+title: How to import existing DOCKERFILE into ansible-container?
+tags: [docker]
+category: [docker]
+author: vikrant
+comments: true
+--- 
+
 In this post I am showing the procedure to import existing DOCKERFILE into the ansible-container. 
 
 Step 1 : Created directory `/root/ANSIBLE-CONTAINER-PROJECTS/project1/DOCKERFILE` and added the following files into that directory. 

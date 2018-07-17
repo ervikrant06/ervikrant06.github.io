@@ -1,3 +1,12 @@
+---
+layout: post
+title: OVN L3 Gateway
+tags: [OVN]
+category: [OVN, Openstack]
+author: vikrant
+comments: true
+--- 
+
 In one of my previous post, I talk about the L3 gateway. In this article, I am providing more information on this topic. 
 
 If you have worked with neutron DVR, you may already know that N/S traffic in case of instances without floating IP travel through controller node. Similarly, in case of OVN, if the instance is not having floating IP attached to it, then the SNAT happens on the node on which lrp port for the external network is present.

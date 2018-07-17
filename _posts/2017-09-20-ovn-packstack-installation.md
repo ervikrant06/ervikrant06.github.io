@@ -1,3 +1,12 @@
+---
+layout: post
+title: How to use OVN as a mechansim driver in openstack packstack?
+tags: [OVN]
+category: [OVN, Openstack]
+author: vikrant
+comments: true
+--- 
+
 In this article, I am going to show the packstack deployment using ovn as mechansim driver. Pike is the first release which introduced the support for ovn in packstack deployment tool. It require just few changes in answer.txt file to make the deployment successful with ovn as mechanism driver. 
 
 Question arises what is OVN? OVN stands for Open Virtual Network. It's replacement for OVS (Openvswitch) mechanism driver, basically OVN is an extended form of OVS which will be taking care of L2 and L3 packet flows using openflows only which was not possible with OVS without network namespaces. Openflows supporting L3 traffic are present on all compute nodes which means that instances with floating IP will be having direct connectivity with external network from compute node itself instead of traversing through the controller nodes similar to DVR. But in case of DVR still the namespaces were coming into the picture which increases the number of hops in the network path. Also, in DVR if the instance is not having floating IP address then traffic has to go through controller nodes because NAT will happen on that node, in OVN new distributed gateway concept is introduced which makes this opertion also happen on one of the compute node instead of controller node. Note: Distributed GW is not running on all compute nodes, only few of them can have it. It's decided by scheduler on which compute node distributed gateway should be placed. 
