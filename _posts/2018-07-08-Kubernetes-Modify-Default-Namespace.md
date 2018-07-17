@@ -1,7 +1,10 @@
 ---
 layout: post
-title: Change default namespace in kubernetes
-categories: kubernetes
+title: How to change kubernetes default namespace for issuing commands
+tags: kubernetes
+category: kubernetes
+author: vikrant
+comments: true
 ---
 
 How to change the default namespace for issuing the kubernetes command?

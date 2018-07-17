@@ -1,3 +1,12 @@
+---
+layout: post
+title: Kubernetes POD reachability from another POD
+tags: kubernetes
+category: kubernetes
+author: vikrant
+comments: true
+---
+
 In previous article, we have created POD and service. 
 
 Service was created with IP address "10.106.133.16" and it was exposing PORT 31001 for with-in kubernetes access and NODEPORT 31382 for access outside K8. 

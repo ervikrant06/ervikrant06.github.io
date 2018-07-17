@@ -7,24 +7,13 @@ author: vikrant
 comments: true
 ---
 
-<div class="post-categories">
-  {% if post %}
-    {% assign categories = post.categories %}
-  {% else %}
-    {% assign categories = page.categories %}
-  {% endif %}
-  {% for category in categories %}
-  <a href="{{site.baseurl}}/categories/#{{category|slugize}}">{{category}}</a>
-  {% unless forloop.last %}&nbsp;{% endunless %}
-  {% endfor %}
-</div>
 
 This is just for my own reference for seeing the options with which by default services are getting started in minikube. 
 
 
 #### Controller Node
 
-kube-apiserver 
+`kube-apiserver`
 
 ~~~
 --admission-control=Initializers,NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,NodeRestriction,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota 
@@ -55,7 +44,7 @@ kube-apiserver
 --etcd-keyfile=/var/lib/localkube/certs/apiserver-etcd-client.key
 ~~~
 
-kube-controller-manager 
+`kube-controller-manager`
 
 ~~~
 --leader-elect=true 
@@ -69,7 +58,7 @@ kube-controller-manager
 --cluster-signing-key-file=/var/lib/localkube/certs/ca.key
 ~~~
 
-kube-scheduler 
+`kube-scheduler`
 
 ~~~
 --address=127.0.0.1 
@@ -79,7 +68,7 @@ kube-scheduler
 
 #### Worker node
 
-/usr/bin/kubelet 
+`kubelet`
 
 ~~~
 --pod-manifest-path=/etc/kubernetes/manifests 
@@ -96,7 +85,7 @@ kube-scheduler
 --hostname-override=minikube
 ~~~
 
-/usr/local/bin/kube-proxy 
+`kube-proxy`
 
 ~~~
 --config=/var/lib/kube-proxy/config.conf

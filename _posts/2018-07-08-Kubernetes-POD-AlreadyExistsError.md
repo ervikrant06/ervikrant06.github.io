@@ -1,3 +1,12 @@
+---
+layout: post
+title: Kubernetes pods already exists error
+tags: [kubernetes]
+category: [kubernetes]
+author: vikrant
+comments: true
+---
+
 Getting the following error while trying to start the kubernetes POD. 
 
 ~~~

@@ -1,3 +1,12 @@
+---
+layout: post
+title: Kubernetes service iptables magic
+tags: [kubernetes, service]
+category: [kubernetes]
+author: vikrant
+comments: true
+---
+
 In the previous article, we have seen some default POD and services which are started by default. In this article, I am going to spin up a POD and check the stuff related to POD. 
 
 - Started a simple POD using yaml definition. 
@@ -164,7 +173,7 @@ KUBE-MARK-MASQ  tcp  --  anywhere             anywhere             /* default/he
 KUBE-SVC-YLBSDKPE6MPDDRVY  tcp  --  anywhere             anywhere             /* default/helloworld-service: */ tcp dpt:31382
 ~~~
 
-check the rules present in KUBE-SVC-YLBSDKPE6MPDDRVY, and it's pointing to another chain which is the same chain which we checked while seeing the traffic within K8 setup. 
+Check the rules present in KUBE-SVC-YLBSDKPE6MPDDRVY, and it's pointing to another chain which is the same chain which we checked while seeing the traffic within K8 setup. 
 
 ~~~
 # iptables -t nat -L KUBE-MARK-MASQ
@@ -177,4 +186,3 @@ Chain KUBE-SVC-YLBSDKPE6MPDDRVY (2 references)
 target     prot opt source               destination
 KUBE-SEP-32ZXKBHCWGUC5KVE  all  --  anywhere             anywhere             /* default/helloworld-service: */
 ~~~
-

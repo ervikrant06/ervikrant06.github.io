@@ -1,3 +1,12 @@
+---
+layout: post
+title: How to setup kubernetes using minikube?
+tags: kubernetes
+category: kubernetes
+author: vikrant
+comments: true
+---
+
 After hearing too much about the kuberenetes, I thought of start learning about it. Being from the openstack background, I initially planned to use openstack for learning the kubernetes but then I decided to use minikube on MAC with virtual box provider for my initial learning and then gradually moving to use kubernetes on cloud platform like openstack. Starting the kubernetes using minikube is really a cake-walk. Once it's initialized, usually people are tempted to start the first pod or deployment, I was too but before doing that I thought of checking what is present in minikube by default. In this article, I am going to shed some light on the default resources of minikube. 
 
 ~~~

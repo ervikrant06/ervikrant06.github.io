@@ -1,3 +1,12 @@
+---
+layout: post
+title: How to use nfs as a storage backend with kubernetes
+tags: [kubernetes, nfs]
+category: kubernetes
+author: vikrant
+comments: true
+---
+
 In this article, I am covering the kubernetes storage options for stateful containers. To persist the container data we need to attach the volume with container. Kubernetes has evolved  a lot to provide the various storage options to create the volumes required by POD.
 
 I am using the minikube setup for my learning, by default storageclass is present in minikube which allows us to create storage volumes from the HostPath. 
@@ -131,5 +140,3 @@ Source:
     ReadOnly:  false
 Events:        <none> 
 ~~~   
-
-222100ppf00000000136

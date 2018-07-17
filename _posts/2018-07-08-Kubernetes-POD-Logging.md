@@ -1,3 +1,12 @@
+---
+layout: post
+title: Kubernetes pod logging
+tags: [kubernetes, log]
+category: [kubernetes]
+author: vikrant
+comments: true
+---
+
 Logging is very crucial topic for containers. By default like docker, kubernetes use the json log driver which doesn't support the multi-line log which means that it will not be able to dump the call traces in log file. Unfortunately K8 doesn't provide the option to change the logging driver for docker but we can do that while starting the container using `docker run` command. There is open feature request [1] for this. 
 
 - One POD running on my system. Let's login into the minikube and check the logs of container. 
