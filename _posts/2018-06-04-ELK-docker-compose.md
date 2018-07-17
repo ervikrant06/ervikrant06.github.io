@@ -1,3 +1,12 @@
+---
+layout: post
+title: How to use persistent storage for elasticsearch in docker?
+tags: [elasticserch, kibana, logstash, elk]
+category: [ELK]
+author: vikrant
+comments: true
+--- 
+
 In the previous article, we have started the docker containers using `docker run` command, and while starting the ES container we haven't used the persistent storage to save the indexes which means that if container is stop/start then all data will be lost. If you don't trust me perform the stop/start of container and you will see that indices are missing. 
 
 #### Before stop
@@ -126,9 +135,3 @@ Creating belk_kibana1_1   ... done
 Creating belk_beat1_1     ... done
 Attaching to elasticsearch1, belk_logstash1_1, belk_kibana1_1, belk_beat1_1
 ~~~
-
-
-
-# docker run -d --network=elk --name elasticsearch -p 9200:9200 -e xpack.security.enabled=false  -e discovery-type=single-node  -v esdata:/usr/share/elasticsearch/data  docker.elastic.co/elasticsearch/elasticsearch:6.2.4
-# docker run -d --network=elk --name kibana -p 5601:5601 -e xpack.security.enabled=false docker.elastic.co/kibana/kibana:6.2.4
-# docker run -d --network=elk --name logstash -v /tmp/logstash/:/var/tmp/log -e INPUT1=/var/tmp/log -e xpack.security.enabled=falsevim :vikrant7

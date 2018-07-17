@@ -1,9 +1,8 @@
 ---
 layout: post
-title: ELK Shard relocation
+title: Understanding ELK Shard relocation
 tags: [elasticserch, kibana, logstash, elk]
-category: [elasticserch, kibana, logstash, elk]
-permalink: /elk/ShardRelocation/
+category: [ELK]
 author: vikrant
 comments: true
 --- 

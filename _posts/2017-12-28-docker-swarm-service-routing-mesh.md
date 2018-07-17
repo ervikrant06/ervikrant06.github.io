@@ -1,3 +1,12 @@
+---
+layout: post
+title: Understanding docker swarm service routing
+tags: [swarm]
+category: [swarm]
+author: vikrant
+comments: true
+---	
+
 In this article I am going to share some tips about accessing the service from external world. In previous articles, I have talked about accessing the service from client and host machine, explaining the network traffic workflow. While creating a service you can decide whether service should use routing mesh, host mode or external load balancer to access the service. 
 
 #### Route mode mesh

@@ -1,3 +1,12 @@
+---
+layout: post
+title: How to prepare the elasticsearch clustered setup on a single machine?
+tags: [elasticserch, kibana, logstash, elk]
+category: [ELK]
+author: vikrant
+comments: true
+--- 
+
 In the previous articles, we have seen the ELK setup using docker container. I wanted to try the elasticsearch using clustered based setup but I was facing some issues while running the elasticsearch in clustered mode hence I started exploring other options. Finally I decided to run the ES as a process on MAC but point of worry for me whether it will allow me to run the multiple ES processes on a single machine since each process of ES will try to use the port 9200 but then I read the official doc and found that default port range for ES is 9200-9300 this means it will be using any available port from this range hence if 9200 is already used by one process of ES then second will use next one which could be 9201.
 
 Since by default people are using the port 9200 to communicate with ES hence I used this port for client and consecutive ports for master and data nodes.  

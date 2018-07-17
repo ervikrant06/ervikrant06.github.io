@@ -1,3 +1,13 @@
+---
+layout: post
+title: How to troubleshoot docker swarm networking issue?
+tags: [swarm]
+category: [swarm]
+author: vikrant
+comments: true
+--- 
+
+
 Continuing the docker swarm series, in previous articles, I have discussed about the [docker swarm cluster creation](https://ervikrant06.github.io/docker-swarm-setup/) and some [basic networking of docker swarm](https://ervikrant06.github.io/docker-swarm-network/). In this article, we will dig more into the docker swarm network troubleshooting. This article is based on the awesome work done by Sreenivas (https://sreeninet.wordpress.com/2017/11/02/docker-networking-tip-troubleshooting/).
 
 To show the network troubleshooting, I am going to start a vote application with replication count of 2 and a client container. 

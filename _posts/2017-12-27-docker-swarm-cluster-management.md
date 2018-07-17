@@ -1,3 +1,13 @@
+---
+layout: post
+title: Useful docker swarm cluster administration commands
+tags: [swarm]
+category: [swarm]
+author: vikrant
+comments: true
+---	
+
+
 In the previous articles I have shown the procedure to create swarm cluster and run the services. In this article I am going to provide some tips for docker swarm cluster admins which they can use in daily life. 
 
 *Q : After creating the cluster initially if we want to join the nodes later how can we do it?*

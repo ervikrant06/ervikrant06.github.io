@@ -1,8 +1,8 @@
 ---
 layout: post
-title: ELK Beginning
+title: ELK Beginning - 101
 tags: [elasticsearch, logstash, kibana, elk]
-category: [elasticsearch, logstash, kibana, elk]
+category: [ELK]
 author: vikrant
 comments: true
 ---	

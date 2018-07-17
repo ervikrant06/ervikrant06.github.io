@@ -1,3 +1,12 @@
+---
+layout: post
+title: How networking works in multi-node docker swarm cluster?
+tags: [swarm]
+category: [swarm]
+author: vikrant
+comments: true
+--- 
+
 In this article I am going to shed some light on the multi-node docker networking in context of docker swarm. In the previous [article](https://ervikrant06.github.io/docker-swarm-setup/) I have provided the setps to create docker swarm article, in this we will be focusing on networking part. 
 
 As you may have noticed that after initializing the swarm manager node two new interfaces `docker_gwbridge, veth903e7a7@if12` were appearted in `ip a` output. These two interfaces are corresponding to two new docker networks `docker_gwbridge, ingress` which are appearing in following output. 

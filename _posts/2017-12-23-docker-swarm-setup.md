@@ -1,3 +1,12 @@
+---
+layout: post
+title: How to create docker swarm cluster?
+tags: [swarm]
+category: [swarm]
+author: vikrant
+comments: true
+--- 
+
 In this article I am going to provide the steps to create docker swarm setup using one manager and two worker nodes. This is my first article in swarm series, mainly in rest of articles I will be focusing on network part of docker swarm.
 
 A brief introduction to docker swarm, it's orchestrator similar to kubernetes which is used to spin-up the container on multiple nodes and manage the lifecycle of those containers.

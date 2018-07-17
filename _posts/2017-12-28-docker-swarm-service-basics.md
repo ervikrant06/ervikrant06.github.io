@@ -1,3 +1,12 @@
+---
+layout: post
+title: How to create service in docker swarm?
+tags: [docker, swarm]
+category: [swarm]
+author: vikrant
+comments: true
+---	
+
 In this article I am going to shed light on the service creation part in docker swarm. service consists of set of tasks basically task is just a container. 
 
 Step 1 : As I don't want to spin up any task on the manager nodes hence I drain the manager nodes. 

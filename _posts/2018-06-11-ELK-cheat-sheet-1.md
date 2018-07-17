@@ -1,3 +1,12 @@
+---
+layout: post
+title: ELK Cheat Sheet
+tags: [elasticserch, kibana, logstash, elk]
+category: [ELK]
+author: vikrant
+comments: true
+--- 
+
 After deploying the multinode ES setup, I thought of issuing the various apis to see the results. I am categorizing this article as cheat sheet for ES. 
 
 #### Check the health of cluster. 
