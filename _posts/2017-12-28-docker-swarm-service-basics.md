@@ -1,6 +1,6 @@
 ---
 layout: post
-title: How to create service in docker swarm?
+title: How to create service in docker swarm
 tags: [docker, swarm]
 category: [swarm]
 author: vikrant

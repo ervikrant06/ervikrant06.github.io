@@ -1,6 +1,6 @@
 ---
 layout: post
-title: How to create docker swarm cluster?
+title: How to create docker swarm cluster
 tags: [swarm]
 category: [swarm]
 author: vikrant

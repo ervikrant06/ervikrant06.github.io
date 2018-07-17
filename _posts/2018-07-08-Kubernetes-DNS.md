@@ -2,7 +2,7 @@
 layout: post
 title: Kubernetes POD reachability from another POD
 tags: kubernetes
-category: kubernetes
+category: Kubernetes
 author: vikrant
 comments: true
 ---

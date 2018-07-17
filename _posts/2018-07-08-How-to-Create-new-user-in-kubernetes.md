@@ -2,7 +2,7 @@
 layout: post
 title: How to create new user in kubernetes
 tags: [kubernetes, user, certificate]
-category: kubernetes
+category: Kubernetes
 author: vikrant
 comments: true
 ---

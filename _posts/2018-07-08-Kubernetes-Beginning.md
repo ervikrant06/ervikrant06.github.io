@@ -1,8 +1,8 @@
 ---
 layout: post
-title: How to setup kubernetes using minikube?
+title: How to setup kubernetes using minikube
 tags: kubernetes
-category: kubernetes
+category: Kubernetes
 author: vikrant
 comments: true
 ---

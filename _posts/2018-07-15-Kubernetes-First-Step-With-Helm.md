@@ -2,7 +2,7 @@
 layout: post
 title: Helm first step - 101
 tags: [kubernetes, helm]
-category: [kubernetes, helm]
+category: [Kubernetes, Helm]
 author: vikrant
 comments: true
 ---

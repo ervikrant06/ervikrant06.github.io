@@ -1,3 +1,12 @@
+---
+layout: post
+title: How to use ovn-trace for troubleshooting openflows
+tags: [OVN]
+category: [OVN, Openstack]
+author: vikrant
+comments: true
+--- 
+
 In my [last post](https://ervikrant06.github.io/ovn-trace/), I have shown the usage of ovn-trace to trace the logical flows, new versions of ovs-ovn also includes the option "--ovs" which will show the openflows along with logical flows. But as I am using ovs-ovn 2.7 version which doesn't include the "--ovs" option hence I am showing the trace command of openflows in this article. 
 
 ## Setup Info

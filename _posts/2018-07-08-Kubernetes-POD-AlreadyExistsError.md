@@ -2,7 +2,7 @@
 layout: post
 title: Kubernetes pods already exists error
 tags: [kubernetes]
-category: [kubernetes]
+category: [Kubernetes]
 author: vikrant
 comments: true
 ---

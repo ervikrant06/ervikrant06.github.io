@@ -1,6 +1,6 @@
 ---
 layout: post
-title: How to prepare the elasticsearch clustered setup on a single machine?
+title: How to prepare the elasticsearch clustered setup on a single machine
 tags: [elasticserch, kibana, logstash, elk]
 category: [ELK]
 author: vikrant

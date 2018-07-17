@@ -2,7 +2,7 @@
 layout: post
 title: How to create ceph cluster using ROOK in kubernetes
 tags: ["rook", "kubernetes", "ceph"]
-category: ["ceph", "kubernetes", "rook"]
+category: ["Ceph", "Kubernetes", "Rook"]
 permalink: /kuberenetes/How to create ceph cluster using ROOK in kubernetes/
 author: vikrant
 comments: true

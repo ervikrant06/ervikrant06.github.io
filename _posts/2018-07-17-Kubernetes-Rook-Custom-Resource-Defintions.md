@@ -2,7 +2,7 @@
 layout: post
 title: Rook ceph custom resource defintions in kubernetes
 tags: [kubernetes, rook, ceph]
-category: [kubernetes, rook, ceph]
+category: [Kubernetes, Rook, Ceph]
 author: vikrant
 comments: true
 ---

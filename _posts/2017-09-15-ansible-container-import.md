@@ -1,6 +1,6 @@
 ---
 layout: post
-title: How to import existing DOCKERFILE into ansible-container?
+title: How to import existing DOCKERFILE into ansible-container
 tags: [docker]
 category: [docker]
 author: vikrant

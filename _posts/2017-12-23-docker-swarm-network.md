@@ -1,6 +1,6 @@
 ---
 layout: post
-title: How networking works in multi-node docker swarm cluster?
+title: How networking works in multi-node docker swarm cluster
 tags: [swarm]
 category: [swarm]
 author: vikrant

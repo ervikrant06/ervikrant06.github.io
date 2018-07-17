@@ -1,6 +1,6 @@
 ---
 layout: post
-title: How to troubleshoot docker swarm networking issue?
+title: How to troubleshoot docker swarm networking issue
 tags: [swarm]
 category: [swarm]
 author: vikrant

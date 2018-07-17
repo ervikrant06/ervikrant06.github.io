@@ -2,7 +2,7 @@
 layout: post
 title: Kubernetes pod logging
 tags: [kubernetes, log]
-category: [kubernetes]
+category: [Kubernetes]
 author: vikrant
 comments: true
 ---

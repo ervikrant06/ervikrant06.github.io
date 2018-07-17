@@ -1,6 +1,6 @@
 ---
 layout: post
-title: How to use persistent storage for elasticsearch in docker?
+title: How to use persistent storage for elasticsearch in docker
 tags: [elasticserch, kibana, logstash, elk]
 category: [ELK]
 author: vikrant

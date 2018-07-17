@@ -2,7 +2,7 @@
 layout: post
 title: Kubernetes service iptables magic
 tags: [kubernetes, service]
-category: [kubernetes]
+category: [Kubernetes]
 author: vikrant
 comments: true
 ---

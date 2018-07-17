@@ -2,7 +2,7 @@
 layout: post
 title: Kubernetes services with options
 tags: kubernetes, services
-category: kubernetes
+category: Kubernetes
 author: vikrant
 comments: true
 ---

@@ -2,7 +2,7 @@
 layout: post
 title: How to use nfs as a storage backend with kubernetes
 tags: [kubernetes, nfs]
-category: kubernetes
+category: Kubernetes
 author: vikrant
 comments: true
 ---
