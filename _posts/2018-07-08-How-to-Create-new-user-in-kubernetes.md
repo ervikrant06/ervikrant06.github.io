@@ -1,4 +1,11 @@
-How to generate SSL certificate in minikube?
+---
+layout: post
+title: How to create new user in kubernetes
+tags: [kubernetes, user, certificate]
+category: kubernetes
+author: vikrant
+comments: true
+---
 
 In minikube openssl command is not available by default and it's not possible to install the package using package manager then how can we generate the SSL certificate for user communication. By default minikube user is using the certificats.
 
