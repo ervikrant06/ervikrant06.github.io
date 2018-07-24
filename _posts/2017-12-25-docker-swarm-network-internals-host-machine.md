@@ -1,3 +1,12 @@
+---
+layout: post
+title: How to access the docker 
+tags: [swarm]
+category: [swarm]
+author: vikrant
+comments: true
+--- 
+
 In the previous [article](https://ervikrant06.github.io/docker-swarm-network-internals/), we have seen a way to access the vote application using client container, in this article we will be accessing the same application using the host machine IP address. 
 
 When we are running a application using host mode then container port is getting exposed to host machine, irrespective of on which node container is running, iptable rule for host to container port mapping is added on all the nodes present in cluster. All is referring the general situation in which manager nodes also acts like worker nodes.
