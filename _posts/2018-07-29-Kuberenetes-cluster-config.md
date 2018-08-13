@@ -2,7 +2,7 @@
 layout: post
 title: Kuberenetes creating kube config file to access cluster
 tags: [kubernetes]
-category: [kubernetes]
+category: [Kubernetes]
 author: vikrant
 comments: true
 --- 
