@@ -1,8 +1,8 @@
 ---
 layout: post
 title: How to change Kuberenetes service parameters?
-tags: [kubernetes]
-category: [kubernetes]
+tags: [Kubernetes]
+category: [Kubernetes]
 author: vikrant
 comments: true
 --- 

@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Kuberenetes ksync tool
-tags: [kubernetes]
-category: [kubernetes]
+tags: [Kubernetes]
+category: [Kubernetes]
 author: vikrant
 comments: true
 --- 

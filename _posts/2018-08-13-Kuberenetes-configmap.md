@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Deep-dive on kubernetes config maps
-tags: [kubernetes, configmap]
-category: [kubernetes]
+tags: [Kubernetes, configmap]
+category: [Kubernetes]
 author: vikrant
 comments: true
 --- 

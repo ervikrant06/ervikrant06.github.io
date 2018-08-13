@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Kubernetes Cluster related Tips
-tags: [kubernetes]
-category: [kubernetes]
+tags: [Kubernetes]
+category: [Kubernetes]
 author: vikrant
 comments: true
 --- 
