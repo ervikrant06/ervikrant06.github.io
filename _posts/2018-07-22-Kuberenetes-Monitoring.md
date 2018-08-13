@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Kubernetes monitoring
-tags: [kubernetes, monitoring]
-category: [Kubernetes, monitoring]
+tags: [Kubernetes, monitoring]
+category: [Kubernetes]
 author: vikrant
 comments: true
 ---
