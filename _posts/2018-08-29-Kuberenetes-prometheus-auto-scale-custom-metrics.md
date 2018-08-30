@@ -34,6 +34,18 @@ Since I have deployed prometheus using operator which by default have used monit
         - --config=/etc/adapter/config.yaml
 ~~~        
 
+
+Also added the following custom metric definition in `custom-metrics-config-map.yaml` so that app can scale based on total of http_requests
+
+~~~
+- seriesQuery: 'http_requests_total{namespace!="",pod!=""}'
+  resources:
+    template: <<.Resource>>
+  name:
+    matches: http_requests_total
+  metricsQuery: 'sum(rate(http_requests_total{namespace="default",pod="example-app-548896bc-stnx4"}[2m])) by (pod)'
+~~~  
+
 Here is the list of services which are present in monitoring namespace. We need the prometheus service hence the DNS name for access will become `prometheus-k8s.monitoring.svc:9090`
 
 ~~~
@@ -70,3 +82,6 @@ git clone https://github.com/stefanprodan/k8s-prom-hpa
 And use the podinfo app provided in this repo. 
 
 https://github.com/stefanprodan/k8s-prom-hpa/tree/master/podinfo
+
+
+
