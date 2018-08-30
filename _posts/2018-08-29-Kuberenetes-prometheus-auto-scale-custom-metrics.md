@@ -35,7 +35,7 @@ Since I have deployed prometheus using operator which by default have used monit
 ~~~        
 
 
-Also added the following custom metric definition in `custom-metrics-config-map.yaml` so that app can scale based on total of http_requests
+Also added the following custom metric definition in `custom-metrics-config-map.yaml` so that app can scale based on total of http_requests_total
 
 ~~~
 - seriesQuery: 'http_requests_total{namespace!="",pod!=""}'
