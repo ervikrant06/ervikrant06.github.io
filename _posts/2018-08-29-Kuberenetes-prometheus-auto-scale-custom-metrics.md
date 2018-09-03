@@ -42,7 +42,8 @@ Also added the following custom metric definition in `custom-metrics-config-map.
   resources:
     template: <<.Resource>>
   name:
-    matches: http_requests_total
+    matches: "^(.*)_total"
+    as: "${1}_per_second"
   metricsQuery: 'sum(rate(http_requests_total{namespace="default",pod="example-app-548896bc-stnx4"}[2m])) by (pod)'
 ~~~  
 
@@ -73,13 +74,126 @@ After that issue the following command to list all the metrics as indicated in g
 $ kubectl get --raw "/apis/custom.metrics.k8s.io/v1beta1/" | jq .
 ~~~
 
-For testing the horizontal pod autoscaling using custom metrics clone the following repo.
-
-~~~
-git clone https://github.com/stefanprodan/k8s-prom-hpa
-~~~
+For testing the horizontal pod autoscaling using custom metrics use the following example:
 
 And use the podinfo app provided in this repo. 
+
+~~~
+$ cat <<EOF | kubectl create -f -
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: sample-metrics-app
+  name: sample-metrics-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: sample-metrics-app
+  template:
+    metadata:
+      labels:
+        app: sample-metrics-app
+    spec:
+      tolerations:
+      - key: beta.kubernetes.io/arch
+        value: arm
+        effect: NoSchedule
+      - key: beta.kubernetes.io/arch
+        value: arm64
+        effect: NoSchedule
+      - key: node.alpha.kubernetes.io/unreachable
+        operator: Exists
+        effect: NoExecute
+        tolerationSeconds: 0
+      - key: node.alpha.kubernetes.io/notReady
+        operator: Exists
+        effect: NoExecute
+        tolerationSeconds: 0
+      containers:
+      - image: luxas/autoscale-demo:v0.1.2
+        name: sample-metrics-app
+        ports:
+        - name: web
+          containerPort: 8080
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 3
+          periodSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 3
+          periodSeconds: 5
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sample-metrics-app
+  labels:
+    app: sample-metrics-app
+spec:
+  ports:
+  - name: web
+    port: 80
+    targetPort: 8080
+  selector:
+    app: sample-metrics-app
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: sample-metrics-app
+  labels:
+    service-monitor: sample-metrics-app
+spec:
+  selector:
+    matchLabels:
+      app: sample-metrics-app
+  endpoints:
+  - port: web
+---
+kind: HorizontalPodAutoscaler
+apiVersion: autoscaling/v2beta1
+metadata:
+  name: sample-metrics-app-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: sample-metrics-app
+  minReplicas: 2
+  maxReplicas: 5
+  metrics:
+  - type: Object
+    object:
+      target:
+        kind: Service
+        name: sample-metrics-app
+      metricName: http_requests_per_second
+      targetValue: .4
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: sample-metrics-app
+  namespace: default
+  annotations:
+    traefik.frontend.rule.type: PathPrefixStrip
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /sample-app
+        backend:
+          serviceName: sample-metrics-app
+          servicePort: 80
+EOF         
+~~~         
 
 https://github.com/stefanprodan/k8s-prom-hpa/tree/master/podinfo
 
