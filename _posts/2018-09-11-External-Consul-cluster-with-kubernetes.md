@@ -89,3 +89,92 @@ Node                 Address              Status  Type    Build  Protocol  DC   
 consul1              192.168.99.101:8301  alive   server  1.2.3  2         labsetup  <all>
 consulclient2-kfn6z  172.17.0.10:8301     alive   client  1.2.2  2         labsetup  <default>
 ~~~
+
+- Started nginx container on docker-machine and registered this as a service. 
+
+~~~
+docker@consul1:~$ docker run -d --rm --net=host nginx
+docker@consul1:~$ curl --request PUT --data @agent1.json http://192.168.99.101:8500/v1/agent/service/register
+docker@consul1:~$ cat agent1.json
+{
+  "Name": "nginx",
+  "address": "172.17.0.2",
+  "port": 80,
+  "Check": {
+     "http": "http://172.17.0.2",
+     "interval": "5s"
+  }
+}
+~~~
+
+- Modify the coredns configuration file on kubernetes to add the stub zone information for the consul server. 
+
+~~~
+$ kubectl edit cm coredns -n kube-system
+# Please edit the object below. Lines beginning with a '#' will be ignored,
+# and an empty file will abort the edit. If an error occurs while saving this file will be
+# reopened with the relevant failures.
+#
+apiVersion: v1
+data:
+  Corefile: |
+    .:53 {
+        errors
+        log
+        health
+        kubernetes cluster.local in-addr.arpa ip6.arpa {
+            pods insecure
+            upstream
+            fallthrough in-addr.arpa ip6.arpa
+        }
+        prometheus :9153
+        proxy . /etc/resolv.conf
+        cache 30
+        reload
+    }
+    consul:53 {
+        errors
+        cache 30
+        proxy . 192.168.99.101:8600
+    }
+kind: ConfigMap
+metadata:
+  creationTimestamp: 2018-10-05T13:58:46Z
+  labels:
+    addonmanager.kubernetes.io/mode: EnsureExists
+  name: coredns
+  namespace: kube-system
+  resourceVersion: "52256"
+  selfLink: /api/v1/namespaces/kube-system/configmaps/coredns
+  uid: c6e21a33-c8a6-11e8-a94c-080027064203
+~~~
+
+- Start the DNS container and try to perform the DNS query for nginx service running in consul.
+
+~~~
+$ kubectl run --rm -it dnstools2 --image anubhavmishra/tiny-tools sh
+/ # dig nginx.service.consul
+
+; <<>> DiG 9.11.2-P1 <<>> nginx.service.consul
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 10098
+;; flags: qr aa rd; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 2
+;; WARNING: recursion requested but not available
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 4096
+;; QUESTION SECTION:
+;nginx.service.consul.     IN A
+
+;; ANSWER SECTION:
+nginx.service.consul.   0  IN A  172.17.0.2
+
+;; ADDITIONAL SECTION:
+nginx.service.consul.   0  IN TXT   "consul-network-segment="
+
+;; Query time: 1 msec
+;; SERVER: 10.96.0.10#53(10.96.0.10)
+;; WHEN: Sun Oct 07 05:39:49 UTC 2018
+;; MSG SIZE  rcvd: 141
+~~~
