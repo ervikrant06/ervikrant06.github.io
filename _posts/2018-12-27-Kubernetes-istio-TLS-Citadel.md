@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Digging up the Istio logs
+title: Istio authentication
 tags: [istio, kubernetes]
 category: [istio, kubernetes]
 author: vikrant
