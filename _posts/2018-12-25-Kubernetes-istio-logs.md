@@ -189,11 +189,11 @@ gc 159 @16921.351s 0%: 0.012+8.0+6.1 ms clock, 0.050+0.58/3.7/4.3+24 ms cpu, 11-
 
 - Any new creation will follow the below sequence of actions:
 
-    CDS updates (if any) must always be pushed first.
-    EDS updates (if any) must arrive after CDS updates for the respective clusters.
-    LDS updates must arrive after corresponding CDS/EDS updates.
-    RDS updates related to the newly added listeners must arrive in the end.
-    Stale CDS clusters and related EDS endpoints (ones no longer being referenced) can then be removed.
+  - CDS updates (if any) must always be pushed first.
+  - EDS updates (if any) must arrive after CDS updates for the respective clusters.
+  - LDS updates must arrive after corresponding CDS/EDS updates.
+  - RDS updates related to the newly added listeners must arrive in the end.
+  - Stale CDS clusters and related EDS endpoints (ones no longer being referenced) can then be removed.
 
 - Any update will follow the below sequence of actions:
 
