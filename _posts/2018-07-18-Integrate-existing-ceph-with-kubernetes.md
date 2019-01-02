@@ -20,7 +20,7 @@ All setup is done on my laptop using the Oracle Virtual box.
 #### Gotchas 
 
 - I did the installation of centos 7 without any modification in the interfaces and started with ceph installation. 
-- When minikube is started, it by default took the same IP address which is assigned on Centos 7 machine since I didn't want to mess up with the minikube hence I changed the Centos 7 IP address to ensure that both don't have same IPs.
+- By default minikube took the same IP address which is assigned on Centos 7 machine since I didn't want to mess up with the minikube hence I changed the Centos 7 IP address to ensure that both don't have same IPs.
 - These are two interfaces present in minikube VM. 
 ~~~
 $ ip a
@@ -163,7 +163,7 @@ $ kubectl create -f storage-class.yml
 storageclass "fast-rbd" created
 ~~~
 
-- Create PVC and refer the storageclass which we created earlier. In ceph volume of 8GB is created. 
+- Create PVC referring the storageclass which we created earlier. In ceph volume of 8GB is created. 
 
 ~~~
 $ cat ceph-pvc.yml
