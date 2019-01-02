@@ -7,7 +7,7 @@ author: vikrant
 comments: true
 ---
 
-In one of previous post we have seen the hyperconvered implementation of ceph using ROOK on kubernetes. In this article, I am showing the integration of existing ceph cluster with kubernetes, in other words, using existing ceph as backend for POD persisten storage. 
+In [one of previous post](https://ervikrant06.github.io/kuberenetes/How%20to%20create%20ceph%20cluster%20using%20ROOK%20in%20kubernetes/) we have seen the hyperconverged implementation of ceph using ROOK on kubernetes. In this article, I am showing the integration of existing ceph cluster with kubernetes, in other words, using existing ceph as backend for POD persisten storage. 
 
 All setup is done on my laptop using the Oracle Virtual box. 
 
