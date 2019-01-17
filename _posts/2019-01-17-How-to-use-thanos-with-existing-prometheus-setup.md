@@ -1,6 +1,6 @@
 ---
 layout: post
-title: How to integrate the thanos with existing prometheus setup
+title: How to integrate thanos in existing prometheus setup
 tags: [Thanos, Kubernetes, Prometheus]
 category: [Kubernetes]
 author: vikrant
