@@ -10,17 +10,17 @@ comments: true
 
 Problem Statement : I have existing prometheus setup which is using Ceph RBD as a storage. Now I want to introduce the thanos component into the environment to take the advantage of object storage long term retention and downsampling. 
 
-Solution: Prometheus operator provides official example [1] of introducting thanos into existing prometheus setup but latest (at the time of writing) image v27.0 doesn'tt contain the PR [2] which provides the functionality of using object store configuration in manifest. 
+Solution: Prometheus operator provides official example [1] of introducting thanos into existing prometheus setup but latest (at the time of writing) image v27.0 doesn't contain the PR [2] which provides the functionality of using object store configuration in manifest. 
 
 I created my own image which includes the fix to include the object storage. I will show the steps to create the image and I have pushed the image to my docker hub repo page just in case if someone wants to use it for testing purpose. 
 
 Let's start with lab work. We will cover the following steps in this guide. 
 
-a) Prepare the Prometheus operator and prometheus-config-reloader-image image.
-b) Deploy the ceph using ROOK on kubernetes. 
-c) Install prometheus using operator with new prometheus operator, config reloader image and use ceph for storage. 
-d) Introduce the thanos-sidecar into the existing prometheus setup.
-e) Deploy the thanos-store and thanos-compactor components. 
+- Prepare the Prometheus operator and prometheus-config-reloader-image image.
+- Deploy the ceph using ROOK on kubernetes. 
+- Install prometheus using operator with new prometheus operator, config reloader image and use ceph for storage. 
+- Introduce the thanos-sidecar into the existing prometheus setup.
+- Deploy the thanos-store and thanos-compactor components. 
 
 #### Prepare the prometheus operator and prometheus config reloader image
 
@@ -181,7 +181,7 @@ thanos-store-0                         1/1       Running   0          6m
 # cat /Documents/thanos-objstore-config.yaml
 type: SWIFT
 config:
-  auth_url: "http://10.121.19.50:5000/v3"
+  auth_url: "http://10.121.xx.xx:5000/v3"
   username: admin
   password: 4019b525ee414a4c
   tenant_name: admin
