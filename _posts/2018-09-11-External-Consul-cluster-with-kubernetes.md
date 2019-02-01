@@ -177,4 +177,4 @@ nginx.service.consul.   0  IN TXT   "consul-network-segment="
 ;; SERVER: 10.96.0.10#53(10.96.0.10)
 ;; WHEN: Sun Oct 07 05:39:49 UTC 2018
 ;; MSG SIZE  rcvd: 141
-~~~s
+~~~
