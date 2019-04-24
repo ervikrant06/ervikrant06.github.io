@@ -42,6 +42,35 @@ A: Pause container servers as the parent container for all the containers in you
 
 https://www.ianlewis.org/en/almighty-pause-container
 
+Q: How will you update the version of K8?
+
+A: Before doing the update of K8, it's important to read the release notes to understand the changes introduced in newer version and whether version update will also update the etcd. 
+
+https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-12/
+
+Q: Difference between helm and K8 operator?
+
+A: An Operator is an application-specific controller that extends the Kubernetes API to create, configure and manage instances of complex stateful applications on behalf of a Kubernetes user. It builds upon the basic Kubernetes resource and controller concepts, but also includes domain or application-specific knowledge to automate common tasks better managed by computers. On the other hand, helm is a package manager like yum or apt-get. 
+
+Q: Explain the role of CRD (Custom Resource Definition) in K8?
+
+A: A custom resource is an extension of the Kubernetes API that is not necessarily available in a default Kubernetes installation. It represents a customization of a particular Kubernetes installation. However, many core Kubernetes functions are now built using custom resources, making Kubernetes more modular.
+
+#### Compute
+
+Q: How to troubleshoot if the POD is not getting scheduled? 
+
+A: There are many factors which can led to unstartable POD. Most common one is running out of resources, use the commands like `kubectl desribe <POD> -n <Namespace>` to see the reason why POD is not started. Also, keep an eye on `kubectl get events` to see all events coming from the cluster. 
+
+#### Storage
+
+Q: How to provide persistent storage for POD?
+
+A: Persistent volumes are used for persistent POD storage. They can be provision statically or dynamically. 
+
+Static : A cluster administrator creates a number of PVs. They carry the details of the real storage which is available for use by cluster users. 
+
+Dynamically : Administrator creates a PVC (Persistent volume claim) specifying the existing storage class and volume created dynamically based on PVC.
 
 #### Network
 
@@ -110,4 +139,62 @@ https://medium.com/google-cloud/understanding-kubernetes-networking-services-f0c
 
 https://medium.com/google-cloud/understanding-kubernetes-networking-ingress-1bc341c84078
 
+
+#### Security
+
+Q: What are the various things can be done to increase the K8 security?
+
+A: This is a huge topic, I am sharing some thoughts on it.
+
+- By default, POD can communicate with any other POD, we can setup network policies to limit this communication between the PODs.
+- RBAC (Role based access control) to narrow down the permissions. 
+- Use namespaces to establish security boundaries. 
+- Set the admission control policies to avoid running the priviledged containers. 
+- Turn on audit logging.
+
+#### Monitoring
+
+Q: How to monitor K8 cluster? 
+
+A: Prometheus is used for K8 monitoring. Prometheus ecosystem consists of multiple components. 
+
+- main Prometheus server which scrapes and stores time series data
+- client libraries for instrumenting application code
+- a push gateway for supporting short-lived jobs
+- special-purpose exporters for services like HAProxy, StatsD, Graphite, etc.
+- an alertmanager to handle alerts
+- various support tools
+
+Q: How to make prometheus HA?
+
+A: You may run multiple instances of prometheus HA but grafana can use only of them as a datasource. You may put load balancer in front of multiple prometheus instances, use sticky sessions and failover if one of the prometheus instance dies. This make things complicated. Thanos is another project which solve these challenges. 
+
+Q: What are other challenges with prometheus?
+
+A: Desipte of being very good at K8 monitoring, prometheus still have some issues: 
+
+- Prometheus HA support.
+- No downsampling is available for collected metrics over the period of time. 
+- No support for object storage for long term metric retention.
+
+All of these challenges are again overcome by Thanos.   
+
+Q: What's prometheus operator?
+
+A: The mission of the Prometheus Operator is to make running Prometheus on top of Kubernetes as easy as possible, while preserving configurability as well as making the configuration Kubernetes native.
+
+#### Logging
+
+Q: How to get the central logs from POD?
+
+A: This architecture depends upon application and many other factors. Following are the common logging patters
+
+- Node level logging agent
+- Streaming sidecar container
+- Sidecar container with logging agent
+- Export logs directly from the application
+
+In our setup, filebeat and journalbeat are running as daemonset. Logs collected by these are dumped to kafka topic which are eventually dumped to ELK stack. 
+
+Same can be achieved using EFK stack and fluentd-bit.   
 
