@@ -40,5 +40,13 @@ $ ip route list | tail
 
 This route information is populated to all the nodes in setup using BGP.
 
+#### Update: 
+
+Recently, in another cluster, we thought of using Calico Route reflector with etcd datastore. Actually we used go-bgp instead of Calico Route reflector which seems to be more stable. etcd and go-bgp are co-located on a baremetal nodes. Three instances of Calico route reflector were created for redundancy purpose. All instances were referring to the etcd v3 database. 
+
+To configure the calico daemon set running on the executor nodes run the calicoctl commands given in official documentation to disable the mesh topology and switch to BGP. 
+
+We have seen significant difference in performance in terms of scalability and resource consumption. In 400 node K8 cluster, new cluster with route reflector and dedicated etcdv3 is taking, calico daemon is approx taking 25 times less memory and 45 times avg time of cpu in seconds. 
+
 [1] https://github.com/projectcalico/typha
 
