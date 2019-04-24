@@ -28,8 +28,8 @@ Q: How to do maintenance activity on K8 node?
 
 A: Maintenance activity are inevitable part of administration, you may need to do the patching or apply some security fixes on K8. Mark the node unschedulable and then drain the PODs which are present on K8 node.
 
-# kubectl cordon <hostname>
-# kubectl drain --ignore-daemonsets <hostname>
+ kubectl cordon <hostname>
+ kubectl drain --ignore-daemonsets <hostname>
 
 It's important to include the `--ignore-daemonsets` for any daemonset running on this node. Just in case if any statefulset is running on this node, and if no more node is available to maintain the count of statesful set then statesfulset POD will be in pending status. 
 
