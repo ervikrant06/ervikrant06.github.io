@@ -78,11 +78,55 @@ Q: Explain the role of CRD (Custom Resource Definition) in K8?
 
 A: A custom resource is an extension of the Kubernetes API that is not necessarily available in a default Kubernetes installation. It represents a customization of a particular Kubernetes installation. However, many core Kubernetes functions are now built using custom resources, making Kubernetes more modular.
 
+Q: What are the various K8 related services running on nodes and role of each service?
+
+A: Mainly K8 cluster consists of two type of nodes: master and executor
+
+- master services:
+
+  - kube-apiserver: Master API service which acts like a door to K8 cluster. 
+  - kube-scheduler: Schedule PODs according to available resources on executor nodes. 
+  - kube-controller-manager: controller is a control loop that watches the shared state of the cluster through the 
+    apiserver and makes changes attempting to move the current state towards the desired state
+
+- executor node: (These also runs on master node)
+
+  - kube-proxy: The Kubernetes network proxy runs on each node. This reflects services as defined in the Kubernetes API on 
+    each node and can do simple TCP, UDP, and SCTP stream forwarding or round robin TCP, UDP, and SCTP forwarding across a set of backends.
+  - kubelet: kubelet takes a set of PodSpecs that are provided through various mechanisms (primarily through the 
+    apiserver) and ensures that the containers described in those PodSpecs are running and healthy
+
+Q: Recommended way of managing the access to multiple clusters?
+
+A: kubectl looks for the config file, multiple clusters access information can be specified in this config file. `kubectl config` commands can be used to manage the access to these clusters. 
+
+Q: What is PDB (Pod Disruption Budget)?
+
+A: A PDB specifies the number of replicas that an application can tolerate having, relative to how many it is intended to have. For example, a Deployment which has a .spec.replicas: 5 is supposed to have 5 pods at any given time. If its PDB allows for there to be 4 at a time, then the Eviction API will allow voluntary disruption of one, but not two pods, at a time. This is applicable for voluntary disruptions.
+
 #### Compute
 
 Q: How to troubleshoot if the POD is not getting scheduled? 
 
 A: There are many factors which can led to unstartable POD. Most common one is running out of resources, use the commands like `kubectl desribe <POD> -n <Namespace>` to see the reason why POD is not started. Also, keep an eye on `kubectl get events` to see all events coming from the cluster. 
+
+Q: How to run a POD on particular node?
+
+A: Various methods are available to achieve it. 
+
+- nodeName: specify the node name in POD spec, it will try to run the POD on specific node. 
+
+- nodeSelector : you may assign a specific lable to node which have special resources and use the same label in POD spec so that POD will run only on that node. 
+
+- nodeaffinities: requiredDuringSchedulingIgnoredDuringExecution, preferredDuringSchedulingIgnoredDuringExecution are hard, soft requirements for running the POD on specific nodes. This will be replacing nodeSelector in future. It depends on the node labels. 
+
+Q: How to ensure PODs are colocated to get performance benefits?
+
+A: podAntiAffinity and podAffinity are the affinity concept to not keep and keep the PODs on same node. Key point to note is that it depends on the POD labels. 
+
+Q: What are the taints and toleration?
+
+A: Taints allow a node to repel a set of pods. You can set taints on the node and only the POD which have tolerations matching the taints condition will be able to run on those nodes. This is useful in the case when you allocated node for one user and don't want to run the PODs from other users on that node. 
 
 #### Storage
 
@@ -147,11 +191,13 @@ If the Calico CNI it's responsible for adding the routes for cbr (docker bridge 
 
 Q: How POD to service communication works?
 
-- PODs are ephemeral their IP address can change hence to communicate with POD in reliable way service is used as a proxy or load balancer. A service is a type of kubernetes resource that causes a proxy to be configured to forward requests to a set of pods. The set of pods that will receive traffic is determined by the selector, which matches labels assigned to the pods when they were created. K8 provides an internal cluster DNS that resolves the service name. 
+A: PODs are ephemeral their IP address can change hence to communicate with POD in reliable way service is used as a proxy or load balancer. A service is a type of kubernetes resource that causes a proxy to be configured to forward requests to a set of pods. The set of pods that will receive traffic is determined by the selector, which matches labels assigned to the pods when they were created. K8 provides an internal cluster DNS that resolves the service name. 
 
 Service is using different internal network than POD network. netfilter rules which are injected by kube-proxy are used to redirect the request actually destined for service IP to right POD. 
 
+Q: How does service knows about healthy endpoints?
 
+A: kubelet running on worker node is responsible for detecting the unhealth endpoints, it passes that information to API server then eventually this information is passed to kube-proxy which wil adjust the netfilter rules accordingly. 
 
 I highly recommend reading the following series to get solid understanding about the K8 networking. 
 
