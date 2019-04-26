@@ -42,6 +42,28 @@ A: Pause container servers as the parent container for all the containers in you
 
 https://www.ianlewis.org/en/almighty-pause-container
 
+Q: Why we need service mesh?
+
+A: A service mesh ensures that communication among containerized and often ephemeral application infrastructure services is fast, reliable, and secure. The mesh provides critical capabilities including service discovery, load balancing, encryption, observability, traceability, authentication and authorization, and support for the circuit breaker pattern.
+
+Q: How to control the resource usage of a POD?
+
+A: With requests and limits resource usage of a POD can be control. 
+
+request: the amount of resources being requested for a container. If a container exceeds its request for resources, it may be throttled back down to it’s request.
+
+limit: an upper cap on the resources a container is able to use. If it tries to exceed this limit it may be terminated if Kubernetes decides that another container needs the resources. If you’re sensitive to pod restarts, it makes sense to have the sum of all container resource limits equal or less than the total resource capacity for your cluster.
+
+https://www.noqcks.io/notes/2018/02/03/understanding-kubernetes-resources/
+
+Q: What are the units of CPU and memory in POD definition?
+
+A: CPU is in milicores and memory in bytes. CPU can be easily throttled but not memory. 
+
+Q: Where else we can set a resource limit?
+
+A: You may also set resource limit on a namespace. This is helpful in scenarios where people have habit of not defining the resource limits in POD definition. 
+
 Q: How will you update the version of K8?
 
 A: Before doing the update of K8, it's important to read the release notes to understand the changes introduced in newer version and whether version update will also update the etcd. 
