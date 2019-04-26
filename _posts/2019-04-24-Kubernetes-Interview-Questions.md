@@ -104,6 +104,21 @@ Q: What is PDB (Pod Disruption Budget)?
 
 A: A PDB specifies the number of replicas that an application can tolerate having, relative to how many it is intended to have. For example, a Deployment which has a .spec.replicas: 5 is supposed to have 5 pods at any given time. If its PDB allows for there to be 4 at a time, then the Eviction API will allow voluntary disruption of one, but not two pods, at a time. This is applicable for voluntary disruptions.
 
+Q: In what situations daemonsets are normally used?
+
+A: Daemonset are used to start the PODs on every node in cluster. It's used generally to run the monitoring or logging agents which are supposed to run on every executor node in cluster. 
+
+Q: When stateful sets are preferred?
+
+A: 
+
+Q: What's init container and when it can be used?
+
+A: init containers will set a stage for you before running the actual POD. 
+
+- Wait for some time before starting the app Container with a command like sleep 60.
+- Clone a git repository into a volume.
+
 #### Compute
 
 Q: How to troubleshoot if the POD is not getting scheduled? 
