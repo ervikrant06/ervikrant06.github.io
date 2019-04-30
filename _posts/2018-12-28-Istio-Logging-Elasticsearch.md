@@ -1,8 +1,8 @@
 ---
 layout: post
 title: How to integrate existing EFK with istio
-tags: [istio, kubernetes]
-category: [istio, kubernetes]
+tags: [Istio, Kubernetes]
+category: [Istio, Kubernetes]
 author: vikrant
 comments: true
 --- 
