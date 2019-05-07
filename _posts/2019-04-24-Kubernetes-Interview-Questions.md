@@ -110,7 +110,7 @@ A: Daemonset are used to start the PODs on every node in cluster. It's used gene
 
 Q: When stateful sets are preferred?
 
-A: 
+A: When you are running the applications which require quorum basically the applications which are not truely stateless for those applications stateful sets are required. 
 
 Q: What's init container and when it can be used?
 
@@ -118,6 +118,16 @@ A: init containers will set a stage for you before running the actual POD.
 
 - Wait for some time before starting the app Container with a command like sleep 60.
 - Clone a git repository into a volume.
+
+Q: What are the application deployment strategies?
+
+A: In this agile world there is continuous demand of upgrading the applciations, we have multiple options for deploying the new version of app:
+
+1) Recreate: Old style, existing application version is destroyed and new version is deployed. Significant amount of downtime. 
+2) Rolling update: Gradually bringing down the existing deployment and introducing the new versions. You decide how many instances can be upgraded at single point of time. 
+3) Shadow: Traffic going to existing version of application is replicated to new version to see it's working. Istio provide this pattern. 
+4) A/B Testing using Istio: Running multiple variants of application together and determines the best one based on user traffic. It's more for managment decisions.
+5) Blue/Green : 
 
 #### Compute
 
