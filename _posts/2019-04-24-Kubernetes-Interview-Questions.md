@@ -127,7 +127,8 @@ A: In this agile world there is continuous demand of upgrading the applciations,
 2) Rolling update: Gradually bringing down the existing deployment and introducing the new versions. You decide how many instances can be upgraded at single point of time. 
 3) Shadow: Traffic going to existing version of application is replicated to new version to see it's working. Istio provide this pattern. 
 4) A/B Testing using Istio: Running multiple variants of application together and determines the best one based on user traffic. It's more for managment decisions.
-5) Blue/Green : 
+5) Blue/Green : Blue is mainly about switching the traffic from one version of app to another version. 
+6) Canary deployment : In which certain percentage of traffic is shifted from one version to another. If things work well we will keep on increasing the traffic shift. It's different from the rolling update in which existing version count is reduced gradually. 
 
 #### Compute
 
