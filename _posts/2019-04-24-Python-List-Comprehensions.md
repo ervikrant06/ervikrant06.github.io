@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Python list/dict comprehensions tips and trics
+title: Python list/dict comprehensions tips and tricks
 tags: [Python]
 category: [Python]
 author: vikrant
