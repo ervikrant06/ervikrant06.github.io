@@ -36,13 +36,13 @@ In bq table schema can be specified at the time of creation or while loading the
   - Gender (string) type=string,mode=nullable
   - Hobbies (array) type=string,mode=repeated
   - personaldetails(struct) type=record,mode=nullable
-      nested field 1 : bloodgroup(string) type=string,mode=nullable
-      nested field 2 : salary(integer) type=integer,mode=nullable
+      - nested field 1 : bloodgroup(string) type=string,mode=nullable
+      - nested field 2 : salary(integer) type=integer,mode=nullable
   - addresses(array) type=record,mode=repeated
-   	  nested field 1 : address(string) type=string,mode=nullable
-      nested field 2 : city(string) type=string,mode=nullable
-      nested field 3 : state(string) type=string,mode=nullable
-      nested field 4 : zip(string) type=string,mode=nullable
+   	  - nested field 1 : address(string) type=string,mode=nullable
+      - nested field 2 : city(string) type=string,mode=nullable
+      - nested field 3 : state(string) type=string,mode=nullable
+      - nested field 4 : zip(string) type=string,mode=nullable
 
 You can find the json schema [here](https://github.com/ervikrant06/bigquery_examples/blob/master/table_1_schema.json)
 
