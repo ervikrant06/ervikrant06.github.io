@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Big Query nested 
+title: Big Query nested and repeated columns
 tags: [GCP]
 category: [GCP]
 author: vikrant
