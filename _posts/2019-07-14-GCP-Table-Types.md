@@ -20,14 +20,14 @@ Partitioned tables are a special kind of table in dataset that is divided into s
 
 ```
 $ bq mk -t --expiration 2592000 --time_partitioning_type=DAY --time_partitioning_expiration 259200 --description "This is my time-partitioned table" --label organization:development test_dataset_1.my_table_1 qtr:STRING,sales:INTEGER,year:STRING
-Table 'trc-hpc-qa:test_dataset_1.my_table_1' successfully created.
+Table 'test-project1:test_dataset_1.my_table_1' successfully created.
 ```
 
 - Check the schema and expiration time of table. 
 
 ```
 $ bq show test_dataset_1.my_table_1
-Table trc-hpc-qa:test_dataset_1.my_table_1
+Table test-project1:test_dataset_1.my_table_1
 
    Last modified         Schema         Total Rows   Total Bytes     Expiration            Time Partitioning         Clustered Fields            Labels           
  ----------------- ------------------- ------------ ------------- ----------------- ------------------------------- ------------------ -------------------------- 
@@ -85,7 +85,7 @@ Waiting on bqjob_r7226f8ffacc355f0_0000016bf01f05f9_1 ... (0s) Current status: D
 +------------+----------------+------------+--------------+---------------+---------------------+--------------------+-------------------------+
 | project_id |   dataset_id   |  table_id  | partition_id | creation_time | creation_timestamp  | last_modified_time | last_modified_timestamp |
 +------------+----------------+------------+--------------+---------------+---------------------+--------------------+-------------------------+
-| trc-hpc-qa | test_dataset_1 | my_table_1 | 20190714     | 1563095507274 | 2019-07-14 09:11:47 |      1563095520896 |     2019-07-14 09:12:00 |
+| test-project1 | test_dataset_1 | my_table_1 | 20190714     | 1563095507274 | 2019-07-14 09:11:47 |      1563095520896 |     2019-07-14 09:12:00 |
 +------------+----------------+------------+--------------+---------------+---------------------+--------------------+-------------------------+
 ```
 
@@ -97,14 +97,14 @@ Waiting on bqjob_r7226f8ffacc355f0_0000016bf01f05f9_1 ... (0s) Current status: D
 
 ```
 $ bq mk -t --time_partitioning_field=entrydate --description "This is my date partitioned table" --label organization:development test_dataset_1.my_table_2 entrydate:DATE,sales:integer,year:STRING
-Table 'trc-hpc-qa:test_dataset_1.my_table_2' successfully created.
+Table 'test-project1:test_dataset_1.my_table_2' successfully created.
 ```
 
 - Injected two rows into this table. 
 
 ```
 $ bq show test_dataset_1.my_table_2
-Table trc-hpc-qa:test_dataset_1.my_table_2
+Table test-project1:test_dataset_1.my_table_2
 
    Last modified          Schema         Total Rows   Total Bytes   Expiration     Time Partitioning      Clustered Fields            Labels           
  ----------------- -------------------- ------------ ------------- ------------ ------------------------ ------------------ -------------------------- 
@@ -131,8 +131,8 @@ Waiting on bqjob_r756ff0299392c7a3_0000016bf01f4b87_1 ... (0s) Current status: D
 +------------+----------------+------------+--------------+---------------+---------------------+--------------------+-------------------------+
 | project_id |   dataset_id   |  table_id  | partition_id | creation_time | creation_timestamp  | last_modified_time | last_modified_timestamp |
 +------------+----------------+------------+--------------+---------------+---------------------+--------------------+-------------------------+
-| trc-hpc-qa | test_dataset_1 | my_table_2 | 20190423     | 1563100040838 | 2019-07-14 10:27:20 |      1563100041031 |     2019-07-14 10:27:21 |
-| trc-hpc-qa | test_dataset_1 | my_table_2 | 20190523     | 1563100063653 | 2019-07-14 10:27:43 |      1563100063872 |     2019-07-14 10:27:43 |
+| test-project1 | test_dataset_1 | my_table_2 | 20190423     | 1563100040838 | 2019-07-14 10:27:20 |      1563100041031 |     2019-07-14 10:27:21 |
+| test-project1 | test_dataset_1 | my_table_2 | 20190523     | 1563100063653 | 2019-07-14 10:27:43 |      1563100063872 |     2019-07-14 10:27:43 |
 +------------+----------------+------------+--------------+---------------+---------------------+--------------------+-------------------------+
 
 $ bq query --nouse_legacy_sql 'SELECT * FROM test_dataset_1.my_table_2 where entrydate = DATE("2019-04-23")'
