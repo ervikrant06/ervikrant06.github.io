@@ -31,14 +31,14 @@ In bq table schema can be specified at the time of creation or while loading the
 
 - Creating table with all type of nested types. 
 
-a) Name (string) type=string,mode=required
-b) Age (integer) type=integer,mode=required
-c) Gender (string) type=string,mode=nullable
-d) Hobbies (array) type=string,mode=repeated
-e) personaldetails(struct) type=record,mode=nullable
+-- Name (string) type=string,mode=required
+-- Age (integer) type=integer,mode=required
+-- Gender (string) type=string,mode=nullable
+-- Hobbies (array) type=string,mode=repeated
+-- personaldetails(struct) type=record,mode=nullable
    nested field 1 : bloodgroup(string) type=string,mode=nullable
    nested field 2 : salary(integer) type=integer,mode=nullable
-f) addresses(array) type=record,mode=repeated
+-- addresses(array) type=record,mode=repeated
    nested field 1 : address(string) type=string,mode=nullable
    nested field 2 : city(string) type=string,mode=nullable
    nested field 3 : state(string) type=string,mode=nullable
