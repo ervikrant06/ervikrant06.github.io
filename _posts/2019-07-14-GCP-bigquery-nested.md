@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Big Query nested and repeated columns
+title: BigQuery nested and repeated columns
 tags: [GCP]
 category: [GCP]
 author: vikrant
