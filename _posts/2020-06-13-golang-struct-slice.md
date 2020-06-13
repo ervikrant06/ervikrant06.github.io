@@ -1,6 +1,6 @@
 ---
 layout: post
-title: golang struct slice
+title: golang slice of struct
 tags: [go]
 category: [go]
 author: vikrant
