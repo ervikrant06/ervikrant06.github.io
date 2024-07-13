@@ -51,17 +51,12 @@ spec:
       apiVersion: v1
       data:
         metadata:
-          annotations: "{{ \tmerge(request.object.metadata.annotations || `{}`, {
-            \t\t\"origin-name\": request.object.metadata.name,
-            \t\t\"origin-namespace\": request.object.metadata.namespace
-            \t}) }}"
+          annotations: "{{ \tmerge(request.object.metadata.annotations || `{}`, {\t\t\"origin-name\": request.object.metadata.name, \t\t\"origin-namespace\": request.object.metadata.namespace\t}) }}"
         data:
           commonName: '{{ request.object.data.test }}'
       kind: ConfigMap
       name: kyverno-{{ request.object.metadata.namespace }}-{{ request.object.metadata.name }}
-      namespace: "{{ \tmax_by( items(namespace.metadata.labels, 'label', 'value')[?label.ends_with(@,
-        '.tree.hnc.x-k8s.io/depth')], &value ). \tlabel.replace_all(@, '.tree.hnc.x-k8s.io/depth',
-        '') }}"
+      namespace: "{{ \tmax_by( items(namespace.metadata.labels, 'label', 'value')[?label.ends_with(@,'.tree.hnc.x-k8s.io/depth')], &value ). \tlabel.replace_all(@, '.tree.hnc.x-k8s.io/depth','') }}"
       synchronize: true
     match:
       any:
@@ -118,9 +113,7 @@ metadata:
 To deduce `test-root` i.e destination namespace from the source namespace, we need to get the lable with maximum depth and then pick the value of that label.
 
 ~~~yaml
-      namespace: "{{ \tmax_by( items(namespace.metadata.labels, 'label', 'value')[?label.ends_with(@,
-        '.tree.hnc.x-k8s.io/depth')], &value ). \tlabel.replace_all(@, '.tree.hnc.x-k8s.io/depth',
-        '') }}"
+      namespace: "{{ \tmax_by( items(namespace.metadata.labels, 'label', 'value')[?label.ends_with(@,'.tree.hnc.x-k8s.io/depth')], &value ). \tlabel.replace_all(@, '.tree.hnc.x-k8s.io/depth','') }}"
 ~~~
 
 
