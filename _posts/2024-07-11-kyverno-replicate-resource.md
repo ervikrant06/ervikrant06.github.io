@@ -33,7 +33,7 @@ If the resource is found then create a `ConfigMap` resource in `test-root` names
 
 Create a kyverno clusterpolicy:
 
-~~~
+~~~yaml
 cat <<EOF > kyerno_cluster_policy.yml
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
@@ -89,7 +89,7 @@ $ kubectl apply -f kyerno_cluster_policy.yml
 
 -  This namespace variable contains the name of namespace where the resource is detected. In this case `test-qa-apps` namespace
 
-~~~
+~~~yaml
     - apiCall:
         method: GET
         urlPath: /api/v1/namespaces/{{ request.object.metadata.namespace }}
@@ -98,9 +98,8 @@ $ kubectl apply -f kyerno_cluster_policy.yml
 
 - Let's check the test-qa-apps namespace labels to understand how `test-root` namespace name is deduced from it
 
-~~~
 Truncated output:
-
+~~~yaml
 $ kubectl get ns test-qa-apps -oyaml
 apiVersion: v1
 kind: Namespace
@@ -118,7 +117,7 @@ metadata:
 
 To deduce `test-root` i.e destination namespace from the source namespace, we need to get the lable with maximum depth and then pick the value of that label.
 
-~~~
+~~~yaml
       namespace: "{{ \tmax_by( items(namespace.metadata.labels, 'label', 'value')[?label.ends_with(@,
         '.tree.hnc.x-k8s.io/depth')], &value ). \tlabel.replace_all(@, '.tree.hnc.x-k8s.io/depth',
         '') }}"
@@ -134,7 +133,11 @@ configmap/test1 created
 $ kubectl get cm kyverno-test-qa-apps-test1  -n test-root
 NAME                        DATA   AGE
 kyverno-test-qa-apps-test1   1      45s
+~~~
 
+Check the definition of resource
+
+~~~yaml
 $ kubectl get cm kyverno-test-qa-apps-test1  -n test-root -oyaml
 apiVersion: v1
 data:
