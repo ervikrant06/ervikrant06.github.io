@@ -34,6 +34,7 @@ If the resource is found then create a `ConfigMap` resource in `test-root` names
 Create a kyverno clusterpolicy:
 
 ~~~yaml
+{% raw %}
 cat <<EOF > kyerno_cluster_policy.yml
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
@@ -72,6 +73,7 @@ spec:
               - "test-qa-apps"
     name: test-test-resource
 EOF
+{% endraw %}
 ~~~
 
 Apply the policy
@@ -131,6 +133,7 @@ kyverno-test-qa-apps-test1   1      45s
 Check the definition of resource
 
 ~~~yaml
+{% raw %}
 $ kubectl get cm kyverno-test-qa-apps-test1  -n test-root -oyaml
 apiVersion: v1
 data:
@@ -152,6 +155,7 @@ metadata:
     generate.kyverno.io/trigger-version: v1
   name: kyverno-test-qa-apps-test1
   namespace: test-root
+{% endraw %}
 ~~~
 
 ## Important points
