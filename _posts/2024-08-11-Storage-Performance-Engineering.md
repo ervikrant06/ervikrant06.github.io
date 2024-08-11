@@ -1,96 +1,93 @@
-In my job role, I get an opportunity to work with various shiny storages available in the market. Sharing some tips in this document which I use to evaluate any storage from performance angle. Disclaimer: I am not a performance engineer. Like all other infra engineers I also wear multiple hats in my job role. Typically in a month for a day or two that hat is performance engineering. 
+In my job role, I have the opportunity to work with various storage solutions available in the market. I’m sharing some tips in this document that I use to evaluate any storage from a performance angle. Disclaimer: I am not a performance engineer. Like all other infrastructure engineers, I also wear multiple hats in my job role. Typically, for a day or two each month, that hat is performance engineering.
 
-On a broader note: This is a general sequence
+On a broader note: This is a general sequence.
 
-1) Understand the architecture of storage
-2) Calculate the overall network throughput. Found the chokepoint, this chokepoint is a benchmark figure for us. 
-3) Barebone testing with standard tuning options from vendor white papers or the vendor recommendations to get the max throughput. (Record the results)
-4) Actual workload testing. (Record the results)
+1) Understand the architecture of storage.
+2) Calculate the overall network throughput. Identify the chokepoint; this chokepoint is a benchmark figure for us.
+3) Barebone testing with standard tuning options from vendor white papers or recommendations to get the maximum throughput. (Record the results.)
+4) Actual workload testing. (Record the results.)
 
-Usually people gets excited about the various tuning options. I rarely see a hidden knob (not available in any official vendor doc) which can significantly improve the performance. May be sometime something at the cost of reliability - big no for prod workloads. 
+Usually, people get excited about the various tuning options. I rarely see a hidden knob (not available in any official vendor documentation) that can significantly improve performance. Maybe sometimes something at the cost of reliability—a big no for production workloads.
 
+## Understand Architecture
 
-## Understand architecture
+#### Commodity vs Proprietary Hardware
 
-### Commodity vs properitry hardware 
+Commodity
+Storage vendors only sell the software layer and provide a list of certified hardware vendors and models that companies can purchase to deploy the storage vendor's software layer.
 
-#### Commodity
+Proprietary
+Storage vendors sell both hardware and software layers.
 
-Storage vendors only sell the software layer and have list of certified vendors with HW models which companies can purchase to deploy the storage vendor software layer. 
+#### Shared Nothing vs Shared Everything
 
-#### Properitary
+These are very common terms used in the storage industry; some vendors come up with new terms to grab customer attention. NFS is significant; some people might not like this statement, but NFS still rules the industry.
 
-Storage vendors sell both hardware and software layer. 
+Shared Everything
+In this architecture, storage and compute are usually decoupled. In theory, storage and compute can be scaled independently, but at scale, vendors may start recommending a specific ratio between compute and storage boxes; otherwise, one of them will become a bottleneck.
 
-### Shared nothing vs Shared everything
+Shared Nothing
+Storage and compute are tightly coupled. Adding new boxes to an existing storage system provides both. You need to worry less about maintaining a ratio. This is not a perfect fit for every use case and comes with its own set of management challenges.
 
-Very common terms used in storage industry, some vendors come up with new terms to grab customer attention. NFS is divine, may be some people don't like this statement but NFS still rule the industry. 
+#### Storage Access Protocol
 
-#### Shared Everything
+Parallel Filesystem (Storage)
+With client dependency, it's painful to use but provides better performance compared to NFS-based storage.
 
-Usually in this architecture storage and compute are decoupled. In theory storage and compute can be scaled independently but at scale vendors may start coming up with recommendation of keeping some ratio between compute and storage boxes otherwise one of them will become bottleneck. 
+NFS (or Other Protocol)
+Clients mount the storage using an NFS-based protocol. There is no dependency on the client, but this comes at the cost of performance.
 
-#### Shared nothing
+#### Storage Traffic
 
-storage and compute is tightly coupled. Adding new boxes in existing storage system provides both. Need to worry less about maintaining ratio. Not a perfect fit for every use case, comes with own set of challenges in mgmt. 
+How frontend (N/S) and backend traffic (E/W) is segregated:
 
-### Storage access protocol
+Frontend Traffic: Traffic coming from client nodes.
+Backend Traffic: Traffic between storage nodes.
 
-#### Parallel filesystem(storage)
+#### Network Throughput Calculation
 
-With client dependency it's painful to use but provides better performance in-comparison to NFS based storages. 
+In the era of NVMe disks and SCM (Storage Class Memory), disks rarely become a bottleneck unless you have very small I/O workloads. In our environment, the network is usually a bottleneck.
 
-#### NFS (or other protocol)
+Aside Note: Intel introduced Optane (SCM) in the market, but they have discontinued this product. Other vendors like Samsung and Kioxia still actively work in the SCM space.
 
-Clients mounting the storage using NFS based protocol. No dependency on client comes at the cost of performance. 
+Sit with your network team to calculate the maximum network throughput expected from the architecture. Identify the chokepoint— the least network throughput from any network layer between your clients and the storage stack. This is your benchmark value.
 
-### Storage traffic 
+For example: If storage nodes are connected with ToR (Top of Rack) switches with a total of 1.6 Tb/s, but ToR switches are connected to the core with only 800 Gb/s, then the maximum throughput you may achieve is 800 Gb/s.
 
-How frontend (N/S) and backend traffic (E/W) is segregaeted 
+This factor helps determine how much traffic you need to generate from the client nodes to reach this maximum throughput. If you have 40 Gb/s client nodes, 20-25 such nodes should be sufficient to hit the maximum throughput of storage, assuming clients are not generating any other traffic.
 
-frontend traffic is the traffic coming from client nodes. 
-backend traffic is the traffic between storage nodes.
+## Barebone Testing
 
-## Network throughput calculation
+This is the first stage of testing where we follow standard tuning recommendations from the vendor on storage and client systems. If any recommendation conflicts with our client settings, we avoid that parameter unless it’s a must from the vendor.
 
-In era of NVMe disk and SCM (storage class memory) disks rarely become bottleneck unless you have very small I/O workload. In our environment usually network is a bottleneck. 
+Before proceeding further, make sure that dashboards are prepared.
 
-Aside note: Intel introduced optane (SCM) in the market, they have discontinued this product. Other vendors like Samsung and Kioxia still actively work in SCM space. 
+Storage Dashboards: Some vendors provide good monitoring in storage UI, while others offer Prometheus-compatible exporters (with Grafana dashboards) to scrape these metrics.
+Client Dashboards: Many utilities are available, such as sar, Prometheus node exporter, or custom scripts.
+Since the purpose of this testing is to get the maximum throughput (touching the chokepoint), these tests use larger block sizes like 1M or 4M. Prepare your tests; I personally prefer fio over vendor-provided performance tools.
 
-Sit along with your network team to calculate the max network throughput expected from the architecture. Found the chokepoint - which is least network throughput from any network layer between your clients and storage stack this is your benchmark value. 
+Start running tests from a single client and record how much traffic is generated from that client. This helps verify how much throughput fio (or any other tool) is able to generate from a single client. Increase the number of threads or block size to reach the maximum limit of the client NIC. 32 Gb/s (~80%) from a 40 Gb/s (NIC card client) is a good indicator that we are reaching the client’s maximum limit. Also, ensure that the test runs for a sufficient duration.
 
-Ex: If storage nodes are connected with ToR (Top of Rack) switches with total 1.6Tb/s but ToR switches are connected with core only 800Gb/s then max throughput you may achieve is 800Gb/s. 
+Once the maximum throughput of the client is reached, run this test from multiple clients. Utilities like pdsh can be used to run tests from multiple clients. Ensure that tests run in parallel from all clients and continue running; sometimes, tests fail from a few clients due to missing packages or other reasons.
 
-This factor helps to decide how much traffic we need to generate from the client nodes to get this max throughput. If you have 40Gb/s client nodes 20-25 such nodes should be sufficient to hit the max throughput of storage assuming clients are not generating any other traffic. 
+Important: Store the performance tool output in a form that is easy to parse so that numbers can be plotted.
 
-## Barebone testing
+The purpose of this test is to give us confidence that we are able to achieve the expected numbers from the storage system.
 
-This is the first stage of testing of us where we follow standard tuning recommendation of vendor on storage and client system. If any recommendation conflicts with our client settings we avoid that parameter unless it's must from vendor. 
+## Workload Testing
 
-Before proceeding further make sure that dashboards are prepared. 
+Usually, storage systems are not purchased for a single application. Hence, after doing the barebone testing and before conducting any specific application workload testing, run tests with different block sizes and increase the number of clients. After all, the true litmus test for a storage system is with small block I/O operations; most storages excel with larger block sizes. There’s no harm in running the tests to find the shortcomings of storage, but that shouldn’t be the objective. It should be considered as points to keep in mind for future workloads. Stick more to your majority of actual workload testing.
 
-Storage dashboards: Some vendors provide good monitoring in storage UI, some provide prometheus compatible exporters (with grafana dashboards) to scrape these metrics.
-Client dashboards: Many utiilites are available like sar or prometheus node exporter or custom scripts. 
+Depending on the environment, application team involvement might be needed to run actual application workload testing. We have a test suite to reproduce the application workload. We try to simulate the current workload and future anticipated workload of the application(s) while evaluating storage.
 
-Since purpose of this testing to get max throughput (touching chokepoint) hence these tests use bigger block sizes like 1M or 4M. Prepare your tests, I personally prefer fio instead of vendor provided performance tools. 
+Record and plot the results. 
 
-Start running test from a single client and record how much traffic generated from single client. This helps to verify how much throughput fio (or any other tool) able to generate from single client. Increase the number of threads or blocksize to reach the max limit of client NIC. 32 Gb/s (~80%) from 40 Gb/s (NIC card client) is good indicator that we are reaching max limit of client. Also ensure that test run for sufficient duration. 
+## Summary
 
-Once max throughput of client is reached, run this test from multiple clients. Utilities like pdsh can be used to run test from multiple clients, ensure that test run from all clients parallely and it keeps on running, sometime test fails from few clients because of missing package or any othe reason. 
+Good luck with your storage purchases :-)
 
-Important: store the performance tool output in form which is easy to parse so that numbers can be plotted. 
+Why "purchases" (not "purchase"): From my personal experience, no silver bullet storage solution is available in the market to suit all workloads. You may have to purchase multiple storage systems (but that doesn’t mean new storage for each app).
 
-Purpose of this test is to give us confidence that we are able to get expected numbers from the storage system. 
+Ending this article with a favorite quote about storage:
 
-## Workload testing
-
-Usually storage systems are not purchased for single application hence after the doing the barebone testing and before doing any particular application workload testing, run test with different blocksizes and increase the number of clients. After all true litmus test for storage system is with small block I/O operation, most storages shine with bigger block sizes. 
-
-Depending upon the complexicity and environment may be for this task application team involvement is needed. We have test suite to reproduce the application workload. We try to simulate the workload 
-
-
-
-
-
-
-
+“You can buy your way out of bandwidth problems. But latency is divine.” - Mark Seager
