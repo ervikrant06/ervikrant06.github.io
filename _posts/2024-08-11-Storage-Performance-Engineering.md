@@ -1,3 +1,12 @@
+---
+layout: post
+title: Tips of storage performance engineering
+tags: [storage, performance]
+category: [storage, performance]
+author: Vikrant
+comments: true
+---
+
 In my job role, I have the opportunity to work with various storage solutions available in the market. I’m sharing some tips in this document that I use to evaluate any storage from a performance angle. Disclaimer: I am not a performance engineer. Like all other infrastructure engineers, I also wear multiple hats in my job role. Typically, for a day or two each month, that hat is performance engineering.
 
 On a broader note: This is a general sequence.
