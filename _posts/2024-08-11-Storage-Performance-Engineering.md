@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Tips of storage performance engineering
+title: Storage Performance Engineering Tips
 tags: [storage, performance]
 category: [storage, performance]
 author: Vikrant
