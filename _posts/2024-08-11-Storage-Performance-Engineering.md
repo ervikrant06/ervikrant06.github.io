@@ -2,10 +2,10 @@ In my job role, I have the opportunity to work with various storage solutions av
 
 On a broader note: This is a general sequence.
 
-1) Understand the architecture of storage.
-2) Calculate the overall network throughput. Identify the chokepoint; this chokepoint is a benchmark figure for us.
-3) Barebone testing with standard tuning options from vendor white papers or recommendations to get the maximum throughput. (Record the results.)
-4) Actual workload testing. (Record the results.)
+* Understand the architecture of storage.
+* Calculate the overall network throughput. Identify the chokepoint; this chokepoint is a benchmark figure for us.
+* Barebone testing with standard tuning options from vendor white papers or recommendations to get the maximum throughput. (Record the results.)
+* Actual workload testing. (Record the results.)
 
 Usually, people get excited about the various tuning options. I rarely see a hidden knob (not available in any official vendor documentation) that can significantly improve performance. Maybe sometimes something at the cost of reliability—a big no for production workloads.
 
